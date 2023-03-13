@@ -14,7 +14,7 @@ Library           TRXLibrary.py
 
 *** Test Cases ***
 Send Valid Transaction
-    [Tags]     TES-23
+    [Tags]     TES-25
 
     Trigger Transaction    TEST
     Result should be    TEST
