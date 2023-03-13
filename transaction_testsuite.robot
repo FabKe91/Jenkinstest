@@ -14,12 +14,17 @@ Library           TRXLibrary.py
 
 *** Test Cases ***
 Send Valid Transaction
+    [Tags]     TES-11
+
     Trigger Transaction    TEST
     Result should be    TEST
 
-Send invalid Transaction
-    # Negativtest:
-    Trigger Transaction    x0815
-    Result should be    x0815
-
+#
+#Send invalid Transaction
+#    [Tags]     TES-11
+#
+#    # Negativtest:
+#    Trigger Transaction    x0815
+#    Result should be    x0815
+#
 

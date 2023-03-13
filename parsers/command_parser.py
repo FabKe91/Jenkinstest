@@ -1,6 +1,4 @@
 '''
-    CONTAINS class CommandString
-
     Der PDiag Distributor Command String besteht aus 9 Feldern, die jeweils durch ein ~ getrennt werden.
 
 
@@ -36,30 +34,56 @@
 '''
 
 
-class CommandString(object):
+class DistributorCommand(object):
     ''' EMPTY DOC '''
 
     CSTRING_template = "{}~{}~{}~{}~{}~{}~{}~{}"
 
-    def __intit__(self, kennung=None, inifile=None, scenarioname=None, **parameters):
-        self.missing_params = [param for param, _ in kwargs]
-        pass
+    def __init__(self, kennung=None, inifile=None, scenarioname=None, **parameters):
+        self.nondefault_params = [param for param, _ in kwargs]
+        self._load_default_params()
+        self._cmdstring = ""
 
-    def create_cmdstring(self):
-        ''' This function creates the command string from all set parameters '''
+    def print_options(self):
+        ''' Prints out all options set '''
 
-    def __call__(self, *kwargs):
-        ''' 
-            This function enables class instances to be called
-            So following usage is possible
-            commandstring = CommandString(**kwargs1)
-            commandstring(**kwargs2)
-        '''
+    def add_options(self):
+        ''' Add missing options '''
 
-
+    @property
+    def string(self):
         if self.missing_params:
             raise ValueError(f"Parameters missing: {" ".join(self.missing_params)}")
-        return self.create_cmdstring()
+        self._create_cmdstring()
+        return self._cmdstring()
+
+    def _create_cmdstring(self):
+        ''' This function creates the command string from all set parameters '''
+
+    def _load_default_params(self, resourcefile="default.yaml"):
+        ''' '''
+         
+
+    #def __call__(self, *kwargs):
+    #    ''' 
+    #        This function enables class instances to be called
+    #        So following usage is possible
+    #        commandstring = CommandString(**kwargs1)
+    #        commandstring(**kwargs2)
+    #    '''
+
+
+    #    if self.missing_params:
+    #        raise ValueError(f"Parameters missing: {" ".join(self.missing_params)}")
+    #    return self.create_cmdstring()
+
+
+if __name__ == "__main__":
+    dc = DistributorCommand()
+
+    cmdstring = dc.string
+
+    print(cmdstring)
 
 
 
