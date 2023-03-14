@@ -19,6 +19,7 @@ Send Valid Transaction
     Trigger Transaction    TEST
     Result should be    TES
 
+
 #
 #Send invalid Transaction
 #    [Tags]     TES-11
