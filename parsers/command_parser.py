@@ -33,55 +33,76 @@
 
 '''
 
+import yaml
+from yaml.loader import SafeLoader
+
+CMD_LIST = [
+    "Kennung",
+    "Ini Datei",
+    "Szenario",
+    "Param1",
+    "Param2",
+    "Param3",
+    "Param4",
+    "Param5",
+    "Param6",
+]
+
+YAML_SETTINGS_FILENAME = "default_cmdstring_settings.yaml"
+
+with open(YAML_SETTINGS_FILENAME) as yf:
+    DEFAULT_SETTINGS = yaml.load(yf, Loader=SafeLoader)
+
+    #print(DEFAULT_SETTINGS)
 
 class DistributorCommand(object):
     ''' EMPTY DOC '''
 
     CSTRING_template = "{}~{}~{}~{}~{}~{}~{}~{}"
 
-    def __init__(self, kennung=None, inifile=None, scenarioname=None, **parameters):
-        self.nondefault_params = [param for param, _ in kwargs]
-        self._load_default_params()
+    def __init__(self, inputoptions={}):
+
         self._cmdstring = ""
+
+        self._options = { optionkey:None for optionkey in CMD_LIST }
+        #print(self._options)
+
+        self.add_options( DEFAULT_SETTINGS )
+        #print(self._options)
+
+        self.add_options( inputoptions )
+        #print(self._options)
+
+        
 
     def print_options(self):
         ''' Prints out all options set '''
 
-    def add_options(self):
+    def add_options(self, optionsdict):
         ''' Add missing options '''
+        self._options.update(optionsdict)
 
-    @property
-    def string(self):
-        if self.missing_params:
-            raise ValueError(f"Parameters missing: {" ".join(self.missing_params)}")
-        self._create_cmdstring()
-        return self._cmdstring()
+    def get_string(self):
+        ''' Returns command string with current command options set '''
+        self._cmdstring = self._create_cmdstring()
+        return self._cmdstring
+    
+    def get_string_with_options(self, options):
+        ''' Creates command string without affecting class instance '''
+        temp_cmdstring = self._create_cmdstring(options)
+        return temp_cmdstring
 
-    def _create_cmdstring(self):
+    def _create_cmdstring(self, options={}):
         ''' This function creates the command string from all set parameters '''
-
-    def _load_default_params(self, resourcefile="default.yaml"):
-        ''' '''
-         
-
-    #def __call__(self, *kwargs):
-    #    ''' 
-    #        This function enables class instances to be called
-    #        So following usage is possible
-    #        commandstring = CommandString(**kwargs1)
-    #        commandstring(**kwargs2)
-    #    '''
-
-
-    #    if self.missing_params:
-    #        raise ValueError(f"Parameters missing: {" ".join(self.missing_params)}")
-    #    return self.create_cmdstring()
+        settingslist = [self._options[key] for key in CMD_LIST ]
+        return self.CSTRING_template.format(*settingslist)
 
 
 if __name__ == "__main__":
+
     dc = DistributorCommand()
 
-    cmdstring = dc.string
+    cmdstring = dc.get_string()
 
     print(cmdstring)
 

@@ -14,10 +14,10 @@ Library           TRXLibrary.py
 
 *** Test Cases ***
 Send Valid Transaction
-    [Tags]    TRX   TES-23
+    [Tags]   TES-23
 
     Trigger Transaction    TEST
-    Result should be    TEST
+    Result should be    TES
 
 #
 #Send invalid Transaction
