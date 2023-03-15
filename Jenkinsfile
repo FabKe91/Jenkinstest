@@ -14,7 +14,8 @@ pipeline {
     }
     post {
         always {
-           step([$class: 'XrayImportBuilder', endpointName: '/robot', importInParallel: 'false', importToSameExecution: 'false', serverInstance: 'CLOUD-dc5f9784-d685-4454-84cb-d2870c8c7e54'])
+           step([$class: 'XrayImportBuilder', endpointName: '/robot', importInParallel: 'false', importToSameExecution: 'false', projectKey:'TES', importFilePath: "output.xml", serverInstance: 'CLOUD-dc5f9784-d685-4454-84cb-d2870c8c7e54'])
+
         }
     
     }
